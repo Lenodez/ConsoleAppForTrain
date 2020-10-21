@@ -25,6 +25,11 @@ namespace ConsoleAppForTrain
             Console.WriteLine(myPage.HostName);
             foreach (IPAddress ip in myPage.AddressList)
                 Console.WriteLine(ip.ToString());
+
+            IPHostEntry habrahabr = Dns.GetHostEntry("habr.com");
+            Console.WriteLine(habrahabr.HostName);
+            foreach (IPAddress ip in habrahabr.AddressList)
+                Console.WriteLine(ip.ToString());
         }
 
 
