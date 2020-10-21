@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.IO;
 
 namespace ConsoleAppForTrain
 {
@@ -7,29 +8,24 @@ namespace ConsoleAppForTrain
     {
 
 
-        static void Main()
+        static void Main(string[] args)
         {
-            IPHostEntry host1 = Dns.GetHostEntry("www.microsoft.com");
-            Console.WriteLine(host1.HostName);
-            foreach (IPAddress ip in host1.AddressList)
-                Console.WriteLine(ip.ToString());
+            WebClient client = new WebClient();
 
-            Console.WriteLine();
+            using (Stream stream = client.OpenRead("http://somesite.com/sometext.txt"))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string line = "";
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+            }
 
-            IPHostEntry host2 = Dns.GetHostEntry("google.com");
-            Console.WriteLine(host2.HostName);
-            foreach (IPAddress ip in host2.AddressList)
-                Console.WriteLine(ip.ToString());
-
-            IPHostEntry myPage = Dns.GetHostEntry("vk.com");
-            Console.WriteLine(myPage.HostName);
-            foreach (IPAddress ip in myPage.AddressList)
-                Console.WriteLine(ip.ToString());
-
-            IPHostEntry habrahabr = Dns.GetHostEntry("habr.com");
-            Console.WriteLine(habrahabr.HostName);
-            foreach (IPAddress ip in habrahabr.AddressList)
-                Console.WriteLine(ip.ToString());
+            Console.WriteLine("Файл загружен");
+            Console.Read();
         }
 
 
