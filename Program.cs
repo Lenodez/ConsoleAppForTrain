@@ -5,24 +5,53 @@ namespace ConsoleAppForTrain
     class Program
     {
 
-        static int F(params int[] a)
+        static void Print(int[,] a)
         {
-            int s = 0;
-            foreach (int x in a)
+            for (int i = 0; i < a.GetLength(0); i++)
             {
-                s += x;
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    Console.Write("{0} ", a[i, j]);
+                }
+                Console.WriteLine();
             }
-            return s;
+        }
+        static void Input(out int[,] a)
+        {
+            Console.Write("n= ");
+            int n = int.Parse(Console.ReadLine());
+            Console.Write("m= ");
+            int m = int.Parse(Console.ReadLine());
+            a = new int[n, m];
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    Console.Write("a[{0},{1}]= ", i, j);
+                    a[i, j] = int.Parse(Console.ReadLine());
+                }
+            }
+        }
+        static void Change(int[,] a)
+        {
+            for (int i = 0; i < a.GetLength(0); i++)
+                for (int j = 0; j < a.GetLength(1); j++)
+                    if (a[i, j] % 2 == 0)
+                    {
+                        a[i, j] = 0;
+                    }
         }
         static void Main()
         {
-            int a = 1, b = 2, c = 3, d = 4;
-            Console.WriteLine(F());
-            Console.WriteLine(F(a));
-            Console.WriteLine(F(a, b));
-            Console.WriteLine(F(a, b, c));
-            Console.WriteLine(F(a, b, c, d));
+            int[,] a;
+            Input(out a);
+            Console.WriteLine("Исходный массив:");
+            Print(a);
+            Change(a);
+            Console.WriteLine("Измененный массив:");
+            Print(a);
         }
+        
 
 
 
