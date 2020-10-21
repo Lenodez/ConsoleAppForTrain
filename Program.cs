@@ -4,34 +4,27 @@ namespace ConsoleAppForTrain
 {
     class Program
     {
-        static void Print(int[] a)
+
+        static int F(params int[] a)
         {
-            foreach (int elem in a)
+            int s = 0;
+            foreach (int x in a)
             {
-                Console.Write("{0} ", elem);
+                s += x;
             }
-            Console.WriteLine();
-        }
-        //Заменяет отрицательные элементы массива а на нули. Размерность массива n.
-        static void Change(int[] a, int n)
-        {
-            for (int i = 0; i < n; i++)
-            {
-                if (a[i] < 0)
-                {
-                    a[i] = 0;
-                }
-            }
+            return s;
         }
         static void Main()
         {
-            int[] myArray = { 0, -1, -2, 3, 4, 5, -6, -7, 8, -9 };
-            Console.Write("Исходный массив: ");
-            Print(myArray);
-            Change(myArray, 10);
-            Console.Write("Измененный массив: ");
-            Print(myArray);
+            int a = 1, b = 2, c = 3, d = 4;
+            Console.WriteLine(F());
+            Console.WriteLine(F(a));
+            Console.WriteLine(F(a, b));
+            Console.WriteLine(F(a, b, c));
+            Console.WriteLine(F(a, b, c, d));
         }
+
+
 
     }
 }
