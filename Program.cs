@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.IO;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConsoleAppForTrain
 {
@@ -10,21 +11,37 @@ namespace ConsoleAppForTrain
 
         static void Main(string[] args)
         {
-            int[,] mas = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 10, 11, 12 } };
-
-            int rows = mas.GetUpperBound(0) + 1;
-            int columns = mas.Length / rows;
-            // или так
-            // int columns = mas.GetUpperBound(1) + 1;
-
-            for (int i = 0; i < rows; i++)
+            // ввод чисел
+            int[] nums = new int[9];
+            Console.WriteLine("Введите семь чисел");
+            for (int i = 0; i < nums.Length; i++)
             {
-                for (int j = 0; j < columns; j++)
-                {
-                    Console.Write($"{mas[i, j]} \t");
-                }
-                Console.WriteLine();
+                Console.Write("{0}-е число: ", i + 1);
+                nums[i] = Int32.Parse(Console.ReadLine());
             }
+
+            // сортировка
+            int temp;
+            for (int i = 0; i < nums.Length - 1; i++)
+            {
+                for (int j = i + 1; j < nums.Length; j++)
+                {
+                    if (nums[i] > nums[j])
+                    {
+                        temp = nums[i];
+                        nums[i] = nums[j];
+                        nums[j] = temp;
+                    }
+                }
+            }
+
+            // вывод
+            Console.WriteLine("Вывод отсортированного массива");
+            for (int i = 0; i < nums.Length; i++)
+            {
+                Console.WriteLine(nums[i]);
+            }
+            Console.ReadLine();
         }
 
 
