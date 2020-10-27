@@ -7,24 +7,45 @@ namespace ConsoleAppForTrain
 {
     class Program
     {
-
-
-        static int Fibonachi(int n)
+        enum Operation
         {
-            if (n == 0 || n == 1)
+            Add = 1,
+            Subtract,
+            Multiply,
+            Divide
+        }
+
+        static void MathOp(double x, double y, Operation op)
+        {
+            double result = 0.0;
+
+            switch (op)
             {
-                return n;
+                case Operation.Add:
+                    result = x + y;
+                    break;
+                case Operation.Subtract:
+                    result = x - y;
+                    break;
+                case Operation.Multiply:
+                    result = x * y;
+                    break;
+                case Operation.Divide:
+                    result = x / y;
+                    break;
             }
-            else
-            {
-                return Fibonachi(n - 1) + Fibonachi(n - 2);
-            }
+
+            Console.WriteLine("Результат операции равен {0}", result);
         }
 
         static void Main(string[] args)
         {
-            int S = Fibonachi(45);
-            Console.WriteLine(S);
+            // Тип операции задаем с помощью константы Operation.Add, которая равна 1
+            MathOp(10, 5, Operation.Add);
+            // Тип операции задаем с помощью константы Operation.Multiply, которая равна 3
+            MathOp(11, 5, Operation.Multiply);
+
+            Console.ReadLine();
         }
 
 
