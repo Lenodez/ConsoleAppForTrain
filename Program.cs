@@ -1,55 +1,35 @@
 ﻿using System;
-using System.Net;
-using System.IO;
-using System.ComponentModel.DataAnnotations;
 
 namespace ConsoleAppForTrain
 {
+    class Person
+    {
+        public string name;
+        public int age;
+
+        public Person() { name = "Неизвестно"; age = 18; }      // 1 конструктор
+
+        public Person(string n) { name = n; age = 18; }         // 2 конструктор
+
+        public Person(string n, int a) { name = n; age = a; }   // 3 конструктор
+
+        public void GetInfo()
+        {
+            Console.WriteLine($"Имя: {name}  Возраст: {age}");
+        }
+    }
     class Program
     {
-        enum Operation
-        {
-            Add = 1,
-            Subtract,
-            Multiply,
-            Divide
-        }
-
-        static void MathOp(double x, double y, Operation op)
-        {
-            double result = 0.0;
-
-            switch (op)
-            {
-                case Operation.Add:
-                    result = x + y;
-                    break;
-                case Operation.Subtract:
-                    result = x - y;
-                    break;
-                case Operation.Multiply:
-                    result = x * y;
-                    break;
-                case Operation.Divide:
-                    result = x / y;
-                    break;
-            }
-
-            Console.WriteLine("Результат операции равен {0}", result);
-        }
-
         static void Main(string[] args)
         {
-            // Тип операции задаем с помощью константы Operation.Add, которая равна 1
-            MathOp(10, 5, Operation.Add);
-            // Тип операции задаем с помощью константы Operation.Multiply, которая равна 3
-            MathOp(11, 5, Operation.Multiply);
+            Person tom = new Person();          // вызов 1-ого конструктора без параметров
+            Person bob = new Person("Bob");     //вызов 2-ого конструктора с одним параметром
+            Person sam = new Person("Sam", 25); // вызов 3-его конструктора с двумя параметрами
 
-            Console.ReadLine();
+
+            bob.GetInfo();          // Имя: Bob  Возраст: 18
+            tom.GetInfo();          // Имя: Неизвестно  Возраст: 18
+            sam.GetInfo();          // Имя: Sam  Возраст: 25
         }
-
-
-
-
     }
 }
