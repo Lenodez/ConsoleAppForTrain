@@ -2,34 +2,32 @@
 
 namespace ConsoleAppForTrain
 {
-    class Person
+    struct User
     {
         public string name;
         public int age;
-
-        public Person() { name = "Неизвестно"; age = 18; }      // 1 конструктор
-
-        public Person(string n) { name = n; age = 18; }         // 2 конструктор
-
-        public Person(string n, int a) { name = n; age = a; }   // 3 конструктор
-
-        public void GetInfo()
+        public User(string name, int age)
         {
-            Console.WriteLine($"Имя: {name}  Возраст: {age}");
+            this.name = name;
+            this.age = age;
+        }
+        public void DisplayInfo()
+        {
+            Console.WriteLine($"Name: {name}  Age: {age}");
         }
     }
+
     class Program
     {
         static void Main(string[] args)
         {
-            Person tom = new Person();          // вызов 1-ого конструктора без параметров
-            Person bob = new Person("Bob");     //вызов 2-ого конструктора с одним параметром
-            Person sam = new Person("Sam", 25); // вызов 3-его конструктора с двумя параметрами
+            User tom = new User("Tom", 34);
+            tom.DisplayInfo();
 
+            User bob = new User();
+            bob.DisplayInfo();
 
-            bob.GetInfo();          // Имя: Bob  Возраст: 18
-            tom.GetInfo();          // Имя: Неизвестно  Возраст: 18
-            sam.GetInfo();          // Имя: Sam  Возраст: 25
+            Console.ReadKey();
         }
     }
 }
