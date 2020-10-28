@@ -1,42 +1,29 @@
 ﻿using System;
+using System.Threading;
 
 namespace ConsoleAppForTrain
 {
     class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
-            State state1 = new State(); // Структура State
-            State state2 = new State();
-            state2.x = 1;
-            state2.y = 2;
-            state1 = state2;
-            state2.x = 5; // state1.x=1 по-прежнему
-            Console.WriteLine(state1.x); // 1
-            Console.WriteLine(state2.x); // 5
+            // получаем текущий поток
+            Thread t = Thread.CurrentThread;
 
-            Country country1 = new Country(); // Класс Country
-            Country country2 = new Country();
-            country2.x = 1;
-            country2.y = 4;
-            country1 = country2;
-            country2.x = 7; // теперь и country1.x = 7, так как обе ссылки и country1 и country2 
-                            // указывают на один объект в хипе
-            Console.WriteLine(country1.x); // 7
-            Console.WriteLine(country2.x); // 7
+            //получаем имя потока
+            Console.WriteLine($"Имя потока: {t.Name}");
+            t.Name = "Метод Main";
+            Console.WriteLine($"Имя потока: {t.Name}");
 
-            Console.Read();
+            Console.WriteLine($"Запущен ли поток: {t.IsAlive}");
+            Console.WriteLine($"Приоритет потока: {t.Priority}");
+            Console.WriteLine($"Статус потока: {t.ThreadState}");
+
+            // получаем домен приложения
+            Console.WriteLine($"Домен приложения: {Thread.GetDomain().FriendlyName}");
+
+            Console.ReadLine();
         }
     }
-    struct State
-    {
-        public int x;
-        public int y;
-        public Country country;
     }
-    class Country
-    {
-        public int x;
-        public int y;
-    }
-    }
+    
