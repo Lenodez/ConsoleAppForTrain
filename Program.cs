@@ -5,34 +5,27 @@ namespace ConsoleAppForTrain
 {
     class Program
     {
+        static int x = 0;
         static void Main(string[] args)
         {
-            // создаем новый поток
-            Thread myThread = new Thread(new ThreadStart(Count));
-            myThread.Start(); // запускаем поток
-
-            for (int i = 1; i < 9; i++)
+            for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine("Главный поток:");
-                Console.WriteLine(i * i);
-                Thread.Sleep(300);
+                Thread myThread = new Thread(Count);
+                myThread.Name = "Поток " + i.ToString();
+                myThread.Start();
             }
 
             Console.ReadLine();
         }
-
         public static void Count()
         {
+            x = 1;
             for (int i = 1; i < 9; i++)
             {
-                Console.WriteLine("Второй поток:");
-                Console.WriteLine(i * i);
-                Thread.Sleep(400);
+                Console.WriteLine("{0}: {1}", Thread.CurrentThread.Name, x);
+                x++;
+                Thread.Sleep(1000);
             }
-        }
-        public static void Summ()
-        {
-
         }
     }
 }
