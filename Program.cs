@@ -6,9 +6,10 @@ namespace ConsoleAppForTrain
     class Program
     {
         static int x = 0;
+        static object locker = new object(); // здесь может быть любой объект
         static void Main(string[] args)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Thread myThread = new Thread(Count);
                 myThread.Name = "Поток " + i.ToString();
@@ -19,14 +20,17 @@ namespace ConsoleAppForTrain
         }
         public static void Count()
         {
-            x = 1;
-            for (int i = 1; i < 9; i++)
+            lock (locker)
             {
-                Console.WriteLine("{0}: {1}", Thread.CurrentThread.Name, x);
-                x++;
-                Thread.Sleep(1000);
+                x = 1;
+                for (int i = 1; i < 2; i++)
+                {
+                    Console.WriteLine("{0}: {1}", Thread.CurrentThread.Name, x);
+                    x++;
+                    Thread.Sleep(100);
+                }
             }
         }
     }
 }
-    
+
