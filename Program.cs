@@ -1,38 +1,42 @@
 ﻿using System;
-using System.Threading;
 
 namespace ConsoleAppForTrain
 {
+    class Reader
+    {
+        Lazy<Library> library = new Lazy<Library>();
+        public void ReadBook()
+        {
+            library.Value.GetBook();
+            Console.WriteLine("Читаем бумажную книгу");
+        }
+
+        public void ReadEbook()
+        {
+            Console.WriteLine("Читаем книгу на компьютере");
+        }
+    }
+
+    class Library
+    {
+        private string[] books = new string[99];
+
+        public void GetBook()
+        {
+            Console.WriteLine("Выдаем книгу читателю");
+        }
+    }
+
+
     class Program
     {
-        static AutoResetEvent waitHandler = new AutoResetEvent(true);
-        static int x = 0;
-
         static void Main(string[] args)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                Thread myThread = new Thread(Count);
-                myThread.Name = $"Поток {i.ToString()}";
-                myThread.Start();
-            }
-
-            Console.ReadLine();
+            Reader reader = new Reader();
+            reader.ReadEbook();
+            reader.ReadBook();
         }
-        public static void Count()
-        {
-            waitHandler.WaitOne();
-            x = 1;
-            for (int i = 1; i < 9; i++)
-            {
-                Console.WriteLine($"{Thread.CurrentThread.Name}: {x}");
-                x++;
-                Thread.Sleep(100);
-            }
-            waitHandler.Set();
-        }
-
-
     }
+
 }
 
