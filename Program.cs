@@ -5,14 +5,15 @@ namespace ConsoleAppForTrain
 {
     class Program
     {
+        static AutoResetEvent waitHandler = new AutoResetEvent(true);
         static int x = 0;
-        static object locker = new object(); // здесь может быть любой объект
+
         static void Main(string[] args)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Thread myThread = new Thread(Count);
-                myThread.Name = "Поток " + i.ToString();
+                myThread.Name = $"Поток {i.ToString()}";
                 myThread.Start();
             }
 
@@ -20,17 +21,18 @@ namespace ConsoleAppForTrain
         }
         public static void Count()
         {
-            lock (locker)
+            waitHandler.WaitOne();
+            x = 1;
+            for (int i = 1; i < 9; i++)
             {
-                x = 1;
-                for (int i = 1; i < 2; i++)
-                {
-                    Console.WriteLine("{0}: {1}", Thread.CurrentThread.Name, x);
-                    x++;
-                    Thread.Sleep(100);
-                }
+                Console.WriteLine($"{Thread.CurrentThread.Name}: {x}");
+                x++;
+                Thread.Sleep(100);
             }
+            waitHandler.Set();
         }
+
+
     }
 }
 
